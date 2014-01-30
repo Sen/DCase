@@ -6,8 +6,8 @@ module DCase
     attr_accessor :crypto
 
     def initialize(host, port, crypto)
-      @server = TCPServer.new(host, port)
-      @server.setsockopt(:SOCKET, :REUSEADDR, true)
+      @server = UDPSocket.new
+      @server.bind(host, port)
 
       @crypto = crypto
 
@@ -15,29 +15,27 @@ module DCase
     end
 
     def finalize
-      @server.close if @server
+      @server.close unless @server.closed?
     end
 
     def run
-      loop { async.handle_connection @server.accept }
-    rescue IOError
-      @server.close if @server
+      loop do
+        data, (_, port, addr) = @server.recvfrom(16384)
+        handle_data(data, port, addr)
+      end
     end
 
-    def handle_connection(socket)
-      data = crypto.decrypt socket.readpartial(4096)
-
+    def handle_data(data, port, addr)
       request = UDPSocket.new
-      request.send data, 0, '8.8.8.8', 53
+      request.send crypto.decrypt(data), 0, '8.8.8.8', 53
 
-      async.start_connect(socket, request)
+      async.start_connect(request, port, addr)
     end
 
-    def start_connect(socket, request)
+    def start_connect(request, port, addr)
       data, (_, _port, _addr) = request.recvfrom(16384)
-      socket.write crypto.encrypt(data)
-      socket.close unless socket.closed?
-      request.close unless socket.closed?
+      @server.send crypto.encrypt(data), 0, addr, port
+      request.close unless request.closed?
     end
   end
 end

@@ -23,15 +23,15 @@ module DCase
     end
 
     def handle_data(data, port, addr)
-      connector = TCPSocket.new '127.0.0.1', @config.port
-      connector.write crypto.encrypt(data)
+      connector = UDPSocket.new
+      connector.send crypto.encrypt(data), 0, @config.server, @config.port
 
-      async.request(@socket, connector, port, addr)
+      async.request(connector, port, addr)
     end
 
-    def request(socket, connector, port, addr)
-      data = connector.readpartial(16384)
-      socket.send crypto.decrypt(data), 0, addr, port
+    def request(connector, port, addr)
+      data, (_, _port, _addr) = connector.recvfrom(16384)
+      @socket.send crypto.decrypt(data), 0, addr, port
       connector.close unless connector.closed?
     end
   end
