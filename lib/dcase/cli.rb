@@ -10,11 +10,15 @@ module DCase
         case @config.side
         when 'local'
           DCase::Local.new('0.0.0.0', 53, @crypto, @config)
+          puts "*** Local side is up, port:#{config.port}"
         when 'server'
           DCase::Server.new('0.0.0.0', @config.port, @crypto)
+          puts "*** Server side is up, port:#{config.port}"
         end
 
-      trap("INT") { supervisor.terminate; exit }
+      puts "*** Hit Ctrl+c to stop"
+      trap("INT")  { supervisor.terminate; exit }
+      trap("TERM") { supervisor.terminate; exit }
       sleep
     end
   end
