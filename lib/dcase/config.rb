@@ -4,7 +4,7 @@ require File.expand_path('../version', __FILE__)
 
 module DCase
   class Config
-    attr_accessor :args, :side, :port, :password
+    attr_accessor :args, :side, :server, :port, :password
 
     def initialize(args)
       @args = args || []
@@ -23,6 +23,10 @@ module DCase
 
         opts.on("-s", "--side SIDE", "Local or Server side") do |c|
           @side = c
+        end
+
+        opts.on("-r", "--remote ADDRESS", "Remote server address") do |c|
+          @server = c
         end
 
         opts.on("-p", "--port PORT", Integer, "Remote server port") do |c|
