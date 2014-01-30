@@ -16,3 +16,9 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+*.so
+*.bundle
+*.o
+.DS_Store
+Gemfile.lock
