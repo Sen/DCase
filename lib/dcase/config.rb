@@ -21,7 +21,7 @@ module DCase
         raise 'You need to define side of dcase in'
       end
 
-      if server.nil?
+      if side == 'local' && server.nil?
         raise 'You need to define remote server address'
       end
 
