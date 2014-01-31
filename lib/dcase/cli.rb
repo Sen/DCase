@@ -10,10 +10,10 @@ module DCase
         case @config.side
         when 'local'
           puts "*** Local side is up, port:#{@config.port}"
-          DCase::Local.new('0.0.0.0', 53, @crypto, @config)
+          DCase::Local.supervise('0.0.0.0', 53, @crypto, @config)
         when 'server'
           puts "*** Server side is up, port:#{@config.port}"
-          DCase::Server.new('0.0.0.0', @config.port, @crypto)
+          DCase::Server.supervise('0.0.0.0', @config.port, @crypto)
         end
 
       puts "*** Hit Ctrl+c to stop"
