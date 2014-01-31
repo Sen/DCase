@@ -1,0 +1,3 @@
+password: 'your password'
+port: '8440'
+server: '127.0.0.1'
