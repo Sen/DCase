@@ -9,7 +9,7 @@ module DCase
       supervisor = \
         case @config.side
         when 'local'
-          puts "*** Local side is up, port:#{@config.port}"
+          puts "*** Local side is up, remote server port:#{@config.port}"
           DCase::Local.supervise('0.0.0.0', 53, @crypto, @config)
         when 'server'
           puts "*** Server side is up, port:#{@config.port}"
