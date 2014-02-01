@@ -7,6 +7,7 @@ module DCase
 
     def initialize(host, port, crypto)
       @server = UDPSocket.new
+      @server.to_io.setsockopt(:SOCKET, :REUSEADDR, 1)
       @server.bind(host, port)
 
       @crypto = crypto
