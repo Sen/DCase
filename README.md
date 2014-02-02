@@ -1,7 +1,7 @@
 DCase
 =====
 
-Current version: 0.2
+Current version: 0.3
 
 DCase is a lightweight dns proxy which can help you get through firewalls.
 
