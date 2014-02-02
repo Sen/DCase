@@ -36,9 +36,9 @@ Explanation of the fields:
     dns_list  A dns server list, which will picked on server side
 
 `cd` into the directory of `config.yml`. Run `dcase` on your server. To run it in the background, run
-`nohup dcase -s server -c ./config.yml > log &`.
+`nohup dcase -c ./config.yml > log &`.
 
-On your client machine, `cd` into the directory of `config.yml` also, run `sudo dcase -s local -c config.yml`.
+On your client machine, `cd` into the directory of `config.yml` also, run `sudo dcase -c config.yml`.
 
 Command line args
 ------------------
