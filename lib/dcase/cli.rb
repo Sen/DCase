@@ -12,8 +12,8 @@ module DCase
           puts "*** Local side is up, remote server port:#{@config.port}"
           DCase::Local.supervise('0.0.0.0', 53, @crypto, @config)
         when 'server'
-          puts "*** Server side is up, port:#{@config.port}"
-          DCase::Server.supervise('0.0.0.0', @config.port, @crypto)
+          puts "*** Server side is up, port:#{@config.port}, with dns list: #{@config.dns_list.join(', ')}"
+          DCase::Server.supervise('0.0.0.0', @crypto, @config)
         end
 
       puts "*** Hit Ctrl+c to stop"

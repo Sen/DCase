@@ -22,8 +22,10 @@ Create a file named `config.yml`, with the following content.
     side: 'local or server'
     password: 'your password'
     port: '8440'
-    # you don't need this line when it's on server side
     server: 'remote server address'
+    dns_list:
+      - '8.8.8.8'
+      - '8.8.4.4'
 
 Explanation of the fields:
 
@@ -31,7 +33,8 @@ Explanation of the fields:
     server    Remote server address
     port      Remote server port
     password  Password, should be same in client and server sides
-    
+    dns_list  A dns server will pick on server side
+
 `cd` into the directory of `config.yml`. Run `dcase` on your server. To run it in the background, run
 `nohup dcase -c ./config.yml > log &`.
 
@@ -43,7 +46,7 @@ Command line args
 You can use args to override settings from `config.json`.
 
     sudo dcase -s local -r remote_server_ip_address -p remote_server_port -k your_password
-    sudo dcase -s server -p remote_server_port -k your_password
+    sudo dcase -s server -p remote_server_port -k your_password -l 8.8.8.8,8.8.4.4
 
 License
 -------

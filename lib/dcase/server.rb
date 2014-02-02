@@ -5,10 +5,12 @@ module DCase
 
     attr_accessor :crypto
 
-    def initialize(host, port, crypto)
+    def initialize(host, crypto, config)
+      @config = config
+
       @server = UDPSocket.new
       @server.to_io.setsockopt(:SOCKET, :REUSEADDR, 1)
-      @server.bind(host, port)
+      @server.bind(host, @config.port)
 
       @crypto = crypto
 
@@ -28,7 +30,7 @@ module DCase
 
     def handle_data(data, port, addr)
       request = UDPSocket.new
-      request.send crypto.decrypt(data), 0, '8.8.8.8', 53
+      request.send crypto.decrypt(data), 0, @config.dns_list.sample, 53
 
       async.start_connect(request, port, addr)
     end

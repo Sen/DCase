@@ -5,10 +5,10 @@ require File.expand_path('../version', __FILE__)
 
 module DCase
   class Config
-    attr_accessor :args, :side, :server, :port, :password, :config_path
+    attr_accessor :args, :side, :server, :port, :password, :dns_list, :config_path
 
-    def initialize(args)
-      @args = args || []
+    def initialize(args = [])
+      @args = args
 
       parse_args
       read_config
@@ -44,6 +44,7 @@ module DCase
       @server    = config["server"]        if @server.nil?
       @port      = config["port"].to_i     if @port.nil?
       @password  = config["password"]      if @password.nil?
+      @dns_list  = config["dns_list"]      if @dns_list.nil?
     end
 
     def parse_args
@@ -71,6 +72,10 @@ module DCase
 
         opts.on("-k", "--password PASSWORD", "Password, should be same in client and server sides") do |c|
           @password = c
+        end
+
+        opts.on("-l", "--dns-list LIST", "Password, should be same in client and server sides") do |c|
+          @dns_list = c.split(',').map(&:strip)
         end
 
         opts.on_tail("-v", "--version", "Show shadowsocks gem version") do
