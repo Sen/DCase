@@ -33,7 +33,7 @@ Explanation of the fields:
     server    Remote server address
     port      Remote server port
     password  Password, should be same in client and server sides
-    dns_list  A dns server will pick on server side
+    dns_list  A dns server list, which will picked on server side
 
 `cd` into the directory of `config.yml`. Run `dcase` on your server. To run it in the background, run
 `nohup dcase -c ./config.yml > log &`.
@@ -46,7 +46,7 @@ Command line args
 You can use args to override settings from `config.json`.
 
     sudo dcase -s local -r remote_server_ip_address -p remote_server_port -k your_password
-    sudo dcase -s server -p remote_server_port -k your_password -l 8.8.8.8,8.8.4.4
+    dcase -s server -p remote_server_port -k your_password -l 8.8.8.8,8.8.4.4
 
 License
 -------
