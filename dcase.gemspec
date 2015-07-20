@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
   s.extensions    = %w[ext/encrypt/extconf.rb]
 
-  s.add_dependency "celluloid-io", "~> 0.15.0"
+  s.add_dependency "celluloid-io", "~> 0.16.2"
   s.add_dependency "ffi", "~> 1.9.0"
 
   s.add_development_dependency "rake-compiler", "~> 0.9.2"
