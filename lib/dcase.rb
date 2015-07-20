@@ -1,3 +1,4 @@
+require 'celluloid/autostart'
 require 'celluloid/io'
 
 module DCase
